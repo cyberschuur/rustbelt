@@ -6,7 +6,7 @@
 
 </div>
 
-[Rustbelt](https://en.wikipedia.org/wiki/Rust_Belt) is a Rust implementation of the Windows enumeration tool Seatbelt. The purpose of this project is to provide a fast, efficient, and safe alternative to Seatbelt, leveraging the powerful features of the Rust programming language. This project was created as a learning exercise to enhance my understanding of Rust and how to use it with the native Windows API.
+[Rustbelt](https://en.wikipedia.org/wiki/Rust_Belt) is a Rust implementation of the Windows enumeration tool [Seatbelt](https://github.com/GhostPack/Seatbelt). The purpose of this project is to provide a fast, efficient, and safe alternative to Seatbelt, leveraging the powerful features of the Rust programming language. This project was created as a learning exercise to enhance my understanding of Rust and how to use it with the native Windows API.
 
 > Please note that, in it's current form, there are some features missing which I am planning to add soon. Regardless of missing modules, the most urgent additions are the following:
 > 
