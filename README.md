@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="assets/rustacean-belted.png" width=250px>
+<img src="assets/rustacean-belted.png" width=400px>
 
 </div>
 
