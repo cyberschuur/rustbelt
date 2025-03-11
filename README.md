@@ -8,12 +8,16 @@
 
 [Rustbelt](https://en.wikipedia.org/wiki/Rust_Belt) is a Rust implementation of the Windows enumeration tool [Seatbelt](https://github.com/GhostPack/Seatbelt). The purpose of this project is to provide a fast, efficient, and safe alternative to Seatbelt, leveraging the powerful features of the Rust programming language. This project was created as a learning exercise to enhance my understanding of Rust and how to use it with the native Windows API.
 
-> Please note that, in it's current form, there are some features missing which I am planning to add soon. Regardless of missing modules, the most urgent additions are the following:
-> 
-> - **Support for remote execution** (): Even though username and password is handled appropriately when using WMI queries, there is not yet any support for using them on remotely managed machines. The option `computer_name` currently does not do anything for that reason.
-> - **Proper handling of output formats** (): I've added abstractions in the `src/runtime/formatter` and `src/runtime/writer` modules, but these still need to be used in the `Runtime` object. Currently, I've just called them from the main function. Very lazy, but hey, feel free to fix this!
-> - **Completing registry interface** (): The registry util is only partially implementated compared to Seatbelt. This means that operations performed in certain Seatbelt modules might not exist yet. Furthermore, these should probably be accessible from, or take the Runtime as an argument; again, for remote execution.
-> - **Improved logging and error handling** (): Logging is very minimal (or actually non-existent?) and as I am a Rust n00b, the error handling could most definitely use some work.
+## A Note on Completion
+
+Please note that, in it's current form, there are some features missing which I am planning to add soon. Regardless of missing modules, the most urgent additions are the following:
+
+- **Support for remote execution** (https://github.com/cyberschuur/rustbelt/issues/1): Even though username and password is handled appropriately when using WMI queries, there is not yet any support for using them on remotely managed machines. The option `computer_name` currently does not do anything for that reason.
+- **Proper handling of output formats** (https://github.com/cyberschuur/rustbelt/issues/2): I've added abstractions in the `src/runtime/formatter` and `src/runtime/writer` modules, but these still need to be used in the `Runtime` object. Currently, I've just called them from the main function. Very lazy, but hey, feel free to fix this!
+- **Completing registry interface** (https://github.com/cyberschuur/rustbelt/issues/3): The registry util is only partially implementated compared to Seatbelt. This means that operations performed in certain Seatbelt modules might not exist yet. Furthermore, these should probably be accessible from, or take the Runtime as an argument; again, for remote execution.
+- **Improved logging and error handling** (https://github.com/cyberschuur/rustbelt/issues/4): Logging is very minimal (or actually non-existent?) and as I am a Rust n00b, the error handling could most definitely use some work.
+
+[Once these are completed](https://github.com/cyberschuur/rustbelt/milestone/1), we'll publish the first release.
 
 ## Purpose
 
