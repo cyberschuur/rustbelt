@@ -34,14 +34,17 @@ inventory::submit! {
 impl Command for LastShutdownCommand {
     fn execute(&self, runtime: &Runtime, _: &[String]) -> Result<CommandResult> {
 
+        // Get the shutdown bytes form the registry. These bytes represent the Windows FileTime.
         let shutdown_bytes = get_binary_value(
             RegistryHive::LocalMachine,
             "SYSTEM\\ControlSet001\\Control\\Windows",
             "ShutdownTime"
         )?;
 
+        // Difference between Windows FileTime Epoch (January 1, 1601 UTC) and Unix Time Epoch (January 1, 1970 UTC)
         const EPOCH_DIFFERENCE: u64 = 116444736000000000;
 
+        // Convert the bytes to u64 and then to Unix Timestamp (in microseconds)
         let unix_time: u64 = (to_uint64::<Little>(
             &shutdown_bytes, 
             0
