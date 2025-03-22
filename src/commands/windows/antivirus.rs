@@ -48,6 +48,7 @@ impl Command for AntivirusCommand {
                 results_checked.push(result_checked)
             }
         }
+        
         Ok(Simple(CommandDTO {
             source: "Antivirus".to_string(),
             data: results_checked,

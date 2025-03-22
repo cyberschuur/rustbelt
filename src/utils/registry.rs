@@ -116,6 +116,29 @@ pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<St
     return key.get_value(name)?.try_into();
 }
 
+/// Retrieves a string value from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(Vec<u8>)` containing the binary values.
+/// * `Err(e)` if there was an error retrieving the value.
+pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Vec<u8>> {
+    let value = open_sub_key(hive, path)?.get_value(name)?;
+
+    match value.get(0..value.len()) {
+        Some(value) => return Ok(value.to_vec()),
+        None => Err(HRESULT::from_nt(0).into()),
+    }
+
+
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

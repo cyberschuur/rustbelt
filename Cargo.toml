@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+bitconv = "0.1.4"
+chrono = "0.4.40"
 clap = { version = "4.5.30", features = ["derive"] }
 inventory = "0.3.19"
 strum = "0.27.1"
