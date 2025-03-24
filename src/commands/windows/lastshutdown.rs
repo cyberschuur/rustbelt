@@ -74,7 +74,7 @@ impl Default for LastShutdownCommand {
     fn default() -> Self {
         LastShutdownCommand {
             data: CommandData {
-                support_remote: false,
+                support_remote: true,
             },
         }
     }
