@@ -59,26 +59,6 @@ pub fn open_base_key(hive: RegistryHive, hive_type: RegistryHiveType) -> Result<
     }
 }
 
-/// Retrieves the names of the subkeys for a given registry hive and path.
-///
-/// # Arguments
-///
-/// * `hive` - The registry hive to query.
-/// * `path` - The path within the hive to query.
-///
-/// # Returns
-///
-/// * `Ok(Vec<String>)` containing the names of the subkeys.
-/// * `Err(e)` if there was an error querying the subkeys.
-pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> {
-    let base_maybe = open_base_key(hive, RegistryHiveType::X64)?;
-
-    return match base_maybe {
-        Some(base) => Ok(base.open(path)?.keys()?.map(|key| key).collect()),
-        None => Ok(vec![]),
-    };
-}
-
 /// Opens a subkey for a given registry hive and path.
 ///
 /// # Arguments
@@ -93,10 +73,14 @@ pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> 
 pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
     let base_maybe = open_base_key(hive, RegistryHiveType::X64)?;
 
-    return match base_maybe {
+    match base_maybe {
         Some(base) => base.open(path),
         None => Err(HRESULT::from_nt(0).into()),
-    };
+    }
+}
+
+fn get_value(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
 }
 
 /// Retrieves a string value from a given registry hive, path, and value name.
@@ -114,6 +98,75 @@ pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
 pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<String> {
     let key = open_sub_key(hive, path)?;
     return key.get_value(name)?.try_into();
+}
+
+fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
+}
+
+fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
+}
+
+fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
+}
+
+fn get_qword_value(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
+}
+
+/// Retrieves a string value from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(Vec<u8>)` containing the binary values.
+/// * `Err(e)` if there was an error retrieving the value.
+pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Vec<u8>> {
+    let value = open_sub_key(hive, path)?.get_value(name)?;
+
+    match value.get(0..value.len()) {
+        Some(value) => return Ok(value.to_vec()),
+        None => Err(HRESULT::from_nt(0).into()),
+    }
+}
+
+fn get_values(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
+}
+
+/// Retrieves the names of the subkeys for a given registry hive and path.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+///
+/// # Returns
+///
+/// * `Ok(Vec<String>)` containing the names of the subkeys.
+/// * `Err(e)` if there was an error querying the subkeys.
+pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> {
+    let base_maybe = open_base_key(hive, RegistryHiveType::X64)?;
+
+    match base_maybe {
+        Some(base) => Ok(base.open(path)?.keys()?.map(|key| key).collect()),
+        None => Ok(vec![]),
+    }
+}
+
+fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
+}
+
+fn get_hive(hive: RegistryHive, path: &str, value: &str) {
+    unimplemented!();
 }
 
 #[cfg(test)]
