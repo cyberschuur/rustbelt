@@ -27,7 +27,7 @@ inventory::submit! {
         clap_command: || ClapCommand
             ::new("lastshutdown")
             .version("1.0")
-            .about("A command that check the last shutdown of the local computer")
+            .about("A command that check the last shutdown")
     }
 }
 
