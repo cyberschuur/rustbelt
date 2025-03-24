@@ -60,7 +60,7 @@ impl Command for LastShutdownCommand {
                 );
                 result.insert(0, hashmap);
             },
-            None => panic!("Error in Datetime")
+            None => return Err(HRESULT::from_nt(0).into())
         };
 
         Ok(Simple(CommandDTO {
