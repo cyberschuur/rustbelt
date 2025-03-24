@@ -1,0 +1,38 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [ published, prereleased ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Conditionally build in release mode if this is a release event,
+      - name: Build
+        if: ${{ github.event_name != 'release' }}
+        run: cargo build --verbose
+
+      - name: Build Release
+        if: ${{ github.event_name == 'release' }}
+        run: cargo build --release --verbose
+      
+      - name: Run tests
+        run: cargo test --verbose
+      
+      # Only upload the artifact on a release event (new release or pre-release)
+      - name: Upload artifact
+        if: ${{ github.event_name == 'release' }}
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: rust-artifact
+          path: target/release/rustbelt.exe
