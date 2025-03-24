@@ -91,7 +91,7 @@ pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -124,7 +124,7 @@ pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<St
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -140,7 +140,7 @@ fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -156,7 +156,7 @@ fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -172,7 +172,7 @@ fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_qword_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_qword_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -209,7 +209,7 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_values(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_values(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -241,7 +241,7 @@ pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> 
 ///
 /// * `Ok(Vec<&str>)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
@@ -255,7 +255,7 @@ fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(Hive)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_hive(name: &str) -> Result<RegistryHive> {
+pub fn get_hive(name: &str) -> Result<RegistryHive> {
     todo!();
 }
 
