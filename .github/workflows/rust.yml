@@ -33,7 +33,7 @@ jobs:
       # Only upload the artifact on a release event (new release or pre-release)
       - name: Upload artifact
         if: ${{ github.event_name == 'release' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: rust-artifact
-          path: target/release/your_binary_name.exe
+          path: target/release/rustbelt.exe
