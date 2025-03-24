@@ -19,7 +19,7 @@ jobs:
       
       # Conditionally build in release mode if this is a release event,
       - name: Build
-        if: ! ${{ github.event_name == 'release' }}
+        if: ${{ github.event_name != 'release' }}
         run: cargo build --verbose
 
       - name: Build Release
