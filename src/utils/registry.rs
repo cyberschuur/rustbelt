@@ -79,6 +79,18 @@ pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
     }
 }
 
+/// Retrieves the value from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(String)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
@@ -100,23 +112,71 @@ pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<St
     return key.get_value(name)?.try_into();
 }
 
+/// Retrieves a multi string value from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(String)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
+/// Retrieves an expanded string value from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(String)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
+/// Retrieves a dword value (32-bit number) from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(String)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
+/// Retrieves a qword value (64-bit number) from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(String)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_qword_value(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
-/// Retrieves a string value from a given registry hive, path, and value name.
+/// Retrieves a binary value from a given registry hive, path, and value name.
 ///
 /// # Arguments
 ///
@@ -137,6 +197,18 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
     }
 }
 
+/// Retrieves a value from a given registry hive, path, and value name.
+///
+/// # Arguments
+///
+/// * `hive` - The registry hive to query.
+/// * `path` - The path within the hive to query.
+/// * `name` - The name of the value to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(String)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_values(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
@@ -161,11 +233,29 @@ pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> 
     }
 }
 
+/// Retrieves the user SIDs.
+///
+/// # Arguments
+///
+/// # Returns
+///
+/// * `Ok(Vec<&str>)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
 fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
-fn get_hive(hive: RegistryHive, path: &str, value: &str) {
+/// Retrieves a registry hive from a  given name.
+///
+/// # Arguments
+///
+/// * `name` - The name of the hive to retrieve.
+///
+/// # Returns
+///
+/// * `Ok(Hive)` containing the value.
+/// * `Err(e)` if there was an error retrieving the value.
+fn get_hive(name: &str) -> Result<RegistryHive> {
     todo!();
 }
 
