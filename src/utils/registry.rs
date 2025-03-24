@@ -41,7 +41,7 @@ pub fn open_base_key(hive: RegistryHive, hive_type: RegistryHiveType) -> Result<
         RegistryHive::LocalMachine => LOCAL_MACHINE,
         // RegistryHive::PerformanceData => PERFORMANCE_DATA,
         RegistryHive::Users => USERS,
-        _ => panic!("Unimplemented registry kind {:?}", hive),
+        _ => panic!("todo registry kind {:?}", hive),
     };
 
     // Attempt to open the base key (empty string means the root key)
@@ -80,7 +80,7 @@ pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
 }
 
 fn get_value(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 /// Retrieves a string value from a given registry hive, path, and value name.
@@ -101,19 +101,19 @@ pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<St
 }
 
 fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 fn get_qword_value(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 /// Retrieves a string value from a given registry hive, path, and value name.
@@ -138,7 +138,7 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
 }
 
 fn get_values(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 /// Retrieves the names of the subkeys for a given registry hive and path.
@@ -162,11 +162,11 @@ pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> 
 }
 
 fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 fn get_hive(hive: RegistryHive, path: &str, value: &str) {
-    unimplemented!();
+    todo!();
 }
 
 #[cfg(test)]
