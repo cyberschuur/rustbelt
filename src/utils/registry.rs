@@ -112,6 +112,7 @@ pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<St
     return key.get_value(name)?.try_into();
 }
 
+
 /// Retrieves a multi string value from a given registry hive, path, and value name.
 ///
 /// # Arguments
@@ -195,6 +196,7 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
         Some(value) => return Ok(value.to_vec()),
         None => Err(HRESULT::from_nt(0).into()),
     }
+
 }
 
 /// Retrieves a value from a given registry hive, path, and value name.
