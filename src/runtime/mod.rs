@@ -84,4 +84,11 @@ impl Runtime {
             return Ok(enumerator);
         };
     }
+
+    pub fn is_remote(&self) -> bool {
+        match self.computer_name {
+            Some(_) => true,
+            None => false
+        }
+    }
 }

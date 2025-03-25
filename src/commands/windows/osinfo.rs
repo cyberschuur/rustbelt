@@ -1,5 +1,8 @@
-use clap::Command as ClapCommand;
-use windows::core::*;
+use std::{collections::HashMap, env};
+
+use clap::{Command as ClapCommand, ValueEnum};
+use windows::{core::*, Win32::System::{SystemInformation::{GetTickCount64},Variant::VARIANT}};
+use chrono::prelude::*;
 
 use crate::{
     commands::base::registry::CommandRegistration,
@@ -8,6 +11,7 @@ use crate::{
         CommandResult::{self, Simple},
     },
     runtime::Runtime,
+    utils::registry::{get_string_value, RegistryHive},
 };
 
 pub struct OSInfoCommand {
@@ -25,11 +29,84 @@ inventory::submit! {
     }
 }
 
+fn is_vm() -> bool {
+    todo!()
+}
+
 impl Command for OSInfoCommand {
     fn execute(&self, runtime: &Runtime, _: &[String]) -> Result<CommandResult> {
+        let names = vec![
+            "ProductName",
+            "EditionID",
+            "ReleaseId",
+            "BuildBranch",
+            // "CurrentMajorVersionNumber",
+            "CurrentVersion",
+            "CurrentBuildNumber",
+            // "UBR",
+        ];
+
+        let mut values: HashMap<String, VARIANT> = names
+            .iter()
+            .filter_map(| name | {
+                match get_string_value(
+                        RegistryHive::LocalMachine, 
+                        "Software\\Microsoft\\Windows NT\\CurrentVersion", 
+                        name
+                    ) { 
+                        Ok(value) => Some((name.to_string(), VARIANT::from(value.as_str()))),
+                        Err(_) => None
+                    }
+            })
+            .collect();
+
+        if runtime.is_remote() {
+            todo!()
+        } else {
+            let env_names = vec![
+                "PROCESSOR_ARCHITECTURE",
+                "NUMBER_OF_PROCESSORS",
+                "COMPUTERNAME",
+            ];
+
+            let env_values: HashMap<String, VARIANT> = env_names
+                .iter()
+                .filter_map(|env_variable | {
+                    match env::var_os(env_variable) {
+                        Some(value) => Some((env_variable.to_string(), VARIANT::from(value.to_str().unwrap()))),
+                        None => None
+                    }
+                })
+                .collect();
+
+            values.extend(env_values);
+
+            // let is_vm = is_vm();
+            
+            let boot_time_utc = DateTime::from_timestamp_millis(
+                Utc::now().timestamp_millis() - (unsafe {GetTickCount64()} as i64)
+            ).unwrap();
+
+            values.insert(
+                "BootTime".to_string(), 
+                VARIANT::from(boot_time_utc.to_string().as_str())
+            );
+            
+            values.insert(
+                "MachineGuid".to_string(), 
+                VARIANT::from(
+                    get_string_value(
+                        RegistryHive::LocalMachine, 
+                        "SOFTWARE\\Microsoft\\Cryptography", 
+                        "MachineGuid"
+                    )?.as_str()
+                )
+            );
+        }
+
         Ok(Simple(CommandDTO {
-            source: "Example".to_string(),
-            data: vec![],
+            source: "OSInfo".to_string(),
+            data: vec![values],
         }))
     }
 }
