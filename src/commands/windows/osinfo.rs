@@ -11,7 +11,7 @@ use crate::{
         CommandResult::{self, Simple},
     },
     runtime::Runtime,
-    utils::registry::{get_string_value, RegistryHive},
+    utils::registry::{get_value, RegistryHive},
 };
 
 pub struct OSInfoCommand {
@@ -40,16 +40,16 @@ impl Command for OSInfoCommand {
             "EditionID",
             "ReleaseId",
             "BuildBranch",
-            // "CurrentMajorVersionNumber",
+            "CurrentMajorVersionNumber",
             "CurrentVersion",
             "CurrentBuildNumber",
-            // "UBR",
+            "UBR",
         ];
 
         let mut values: HashMap<String, VARIANT> = names
             .iter()
             .filter_map(| name | {
-                match get_string_value(
+                match get_value(
                         RegistryHive::LocalMachine, 
                         "Software\\Microsoft\\Windows NT\\CurrentVersion", 
                         name
@@ -95,7 +95,7 @@ impl Command for OSInfoCommand {
             values.insert(
                 "MachineGuid".to_string(), 
                 VARIANT::from(
-                    get_string_value(
+                    get_value(
                         RegistryHive::LocalMachine, 
                         "SOFTWARE\\Microsoft\\Cryptography", 
                         "MachineGuid"

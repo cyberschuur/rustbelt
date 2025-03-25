@@ -10,7 +10,7 @@ use crate::{
         CommandResult::{self, Simple},
     },
     runtime::Runtime,
-    utils::registry::{get_string_value, get_sub_key_names, RegistryHive},
+    utils::registry::{get_value, get_sub_key_names, RegistryHive},
 };
 
 pub struct AmsiProvidersCommand {
@@ -40,7 +40,7 @@ impl Command for AmsiProvidersCommand {
         let providers: Vec<String> = provider_ids
             .iter()
             .filter_map(|provider| {
-                match get_string_value(
+                match get_value(
                     RegistryHive::LocalMachine,
                     format!("SOFTWARE\\Classes\\CLSID\\{}\\InprocServer32", provider).as_str(),
                     "",

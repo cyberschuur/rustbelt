@@ -91,8 +91,20 @@ pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_value(hive: RegistryHive, path: &str, value: &str) {
-    todo!();
+pub fn get_value(hive: RegistryHive, path: &str, name: &str) -> Result<String> {
+    let key = open_sub_key(hive, path)?;
+    match key.get_type(name)? {
+        Type::U32 => {
+            let value = get_dword_value(hive, path, name)?;
+            return Ok(value.to_string());
+        },
+        Type::U64 => todo!(),
+        Type::String => get_string_value(hive, path, name),
+        Type::ExpandString => todo!(),
+        Type::MultiString => todo!(),
+        Type::Bytes => todo!(),
+        _ => todo!()
+    }
 }
 
 /// Retrieves a string value from a given registry hive, path, and value name.
@@ -107,9 +119,9 @@ pub fn get_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<String> {
+pub fn get_string_value(hive: RegistryHive, path: &str, value: &str) -> Result<String> {
     let key = open_sub_key(hive, path)?;
-    return key.get_value(name)?.try_into();
+    return key.get_value(value)?.try_into();
 }
 
 
@@ -157,8 +169,9 @@ pub fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_dword_value(hive: RegistryHive, path: &str, value: &str) {
-    todo!();
+pub fn get_dword_value(hive: RegistryHive, path: &str, value: &str) -> Result<u32> {
+    let key = open_sub_key(hive, path)?;
+    return key.get_value(value)?.try_into();
 }
 
 /// Retrieves a qword value (64-bit number) from a given registry hive, path, and value name.
@@ -211,7 +224,7 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_values(hive: RegistryHive, path: &str, value: &str) {
+fn get_values(hive: RegistryHive, path: &str, value: &str) {
     todo!();
 }
 
