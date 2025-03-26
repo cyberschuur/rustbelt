@@ -81,6 +81,9 @@ pub fn open_sub_key(hive: RegistryHive, path: &str) -> Result<Key> {
 
 /// Retrieves the value from a given registry hive, path, and value name.
 ///
+/// This function can be used when you don't know the type of the registry key or don't care about its type.
+/// It will always return the value in the registry as a string value. If you need the value in the actual type,
+/// use the underlying functions below.
 /// # Arguments
 ///
 /// * `hive` - The registry hive to query.
@@ -98,12 +101,18 @@ pub fn get_value(hive: RegistryHive, path: &str, name: &str) -> Result<String> {
             let value = get_dword_value(hive, path, name)?;
             return Ok(value.to_string());
         },
-        Type::U64 => todo!(),
+        Type::U64 => {
+            let value = get_qword_value(hive, path, name)?;
+            return Ok(value.to_string());
+        },
         Type::String => get_string_value(hive, path, name),
         Type::ExpandString => todo!(),
         Type::MultiString => todo!(),
-        Type::Bytes => todo!(),
-        _ => todo!()
+        Type::Bytes => {
+            let value = get_binary_value(hive, path, name)?;
+            return Ok(format!("{:?}", value));
+        },
+        _ => Err(HRESULT::from_nt(0).into())
     }
 }
 
@@ -119,9 +128,9 @@ pub fn get_value(hive: RegistryHive, path: &str, name: &str) -> Result<String> {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_string_value(hive: RegistryHive, path: &str, value: &str) -> Result<String> {
+pub fn get_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<String> {
     let key = open_sub_key(hive, path)?;
-    return key.get_value(value)?.try_into();
+    return key.get_value(name)?.try_into();
 }
 
 
@@ -137,7 +146,7 @@ pub fn get_string_value(hive: RegistryHive, path: &str, value: &str) -> Result<S
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_multi_string_value(hive: RegistryHive, path: &str, name: &str) {
     todo!();
 }
 
@@ -151,9 +160,9 @@ pub fn get_multi_string_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// # Returns
 ///
-/// * `Ok(String)` containing the value.
+/// * `Ok(Vec<String>)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_expanded_string_value(hive: RegistryHive, path: &str, name: &str) -> Result<Vec<String>> {
     todo!();
 }
 
@@ -169,9 +178,9 @@ pub fn get_expanded_string_value(hive: RegistryHive, path: &str, value: &str) {
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_dword_value(hive: RegistryHive, path: &str, value: &str) -> Result<u32> {
+pub fn get_dword_value(hive: RegistryHive, path: &str, name: &str) -> Result<u32> {
     let key = open_sub_key(hive, path)?;
-    return key.get_value(value)?.try_into();
+    return key.get_value(name)?.try_into();
 }
 
 /// Retrieves a qword value (64-bit number) from a given registry hive, path, and value name.
@@ -186,7 +195,7 @@ pub fn get_dword_value(hive: RegistryHive, path: &str, value: &str) -> Result<u3
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_qword_value(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_qword_value(hive: RegistryHive, path: &str, name: &str) -> Result<u64> {
     todo!();
 }
 
@@ -224,7 +233,7 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
 ///
 /// * `Ok(String)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-fn get_values(hive: RegistryHive, path: &str, value: &str) {
+fn get_values(hive: RegistryHive, path: &str, name: &str) {
     todo!();
 }
 
@@ -256,7 +265,7 @@ pub fn get_sub_key_names(hive: RegistryHive, path: &str) -> Result<Vec<String>> 
 ///
 /// * `Ok(Vec<&str>)` containing the value.
 /// * `Err(e)` if there was an error retrieving the value.
-pub fn get_user_sids(hive: RegistryHive, path: &str, value: &str) {
+pub fn get_user_sids(hive: RegistryHive, path: &str, name: &str) {
     todo!();
 }
 
