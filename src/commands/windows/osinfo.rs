@@ -1,6 +1,4 @@
-use std::{collections::HashMap, env, ffi::OsString};
-use std::os::windows::ffi::OsStringExt;
-
+use std::{collections::HashMap, env};
 
 use clap::Command as ClapCommand;
 use windows::{
