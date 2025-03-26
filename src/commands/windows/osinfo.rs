@@ -1,7 +1,19 @@
-use std::{collections::HashMap, env};
+use std::{collections::HashMap, env, ffi::OsString};
+use std::os::windows::ffi::OsStringExt;
 
-use clap::{Command as ClapCommand, ValueEnum};
-use windows::{core::*, Win32::System::{SystemInformation::{GetTickCount64},Variant::VARIANT}};
+
+use clap::Command as ClapCommand;
+use windows::{
+    core::*, 
+    Win32::System::{
+        Time::{
+            GetTimeZoneInformation,
+            TIME_ZONE_INFORMATION
+        },
+        SystemInformation::GetTickCount64,
+        Variant::VARIANT,
+    }
+};
 use chrono::prelude::*;
 
 use crate::{
@@ -91,7 +103,18 @@ impl Command for OSInfoCommand {
                 "BootTime".to_string(), 
                 VARIANT::from(boot_time_utc.to_string().as_str())
             );
-            
+
+            unsafe {
+                let mut tz_info = TIME_ZONE_INFORMATION::default();
+                GetTimeZoneInformation(&mut tz_info);
+                let tz_name = String::from_utf16_lossy(&tz_info.StandardName);
+
+                values.insert(
+                    "TimeZone".to_string(),
+                    VARIANT::from(tz_name.as_str())
+                );    
+            }
+
             values.insert(
                 "MachineGuid".to_string(), 
                 VARIANT::from(
