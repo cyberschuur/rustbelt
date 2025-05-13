@@ -90,8 +90,6 @@ impl Command for OSInfoCommand {
                 .collect();
 
             values.extend(env_values);
-
-            // let is_vm = is_vm();
             
             let boot_time_utc = DateTime::from_timestamp_millis(
                 Utc::now().timestamp_millis() - (unsafe {GetTickCount64()} as i64)
