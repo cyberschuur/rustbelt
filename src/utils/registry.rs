@@ -221,22 +221,6 @@ pub fn get_binary_value(hive: RegistryHive, path: &str, name: &str) -> Result<Ve
 
 }
 
-/// Retrieves a value from a given registry hive, path, and value name.
-///
-/// # Arguments
-///
-/// * `hive` - The registry hive to query.
-/// * `path` - The path within the hive to query.
-/// * `name` - The name of the value to retrieve.
-///
-/// # Returns
-///
-/// * `Ok(String)` containing the value.
-/// * `Err(e)` if there was an error retrieving the value.
-fn get_values(hive: RegistryHive, path: &str, name: &str) {
-    todo!();
-}
-
 /// Retrieves the names of the subkeys for a given registry hive and path.
 ///
 /// # Arguments
